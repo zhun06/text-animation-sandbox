@@ -62,25 +62,29 @@ function removeAnimationClasses(element) {
   });
 }
 
+function resetAnimation(element) {
+  cancelDelay(); // Cancel any ongoing delay
+  removeAnimationClasses(element);
+  element.classList.add(currentAnimation);
+}
+
 darkMode.addEventListener('click', () => {
   document.body.classList.toggle('dark');
 });
 
 // Animations
 // Animation Duration
+text.style.setProperty('--anim-duration', `${duration}s`); 
 animDuration.addEventListener("input", () => {
     let input = Number(animDuration.value);
     input = Math.min(30, Math.max(1, input));
     duration = input;
+    text.style.setProperty('--anim-duration', `${duration}s`);
+    resetAnimation(text);
 });
 
 animDuration.addEventListener("blur", () => {
     animDuration.value = duration;
-});
-
-text.style.setProperty('--anim-duration', `${duration}s`); 
-animDuration.addEventListener("input", () => {
-  text.style.setProperty('--anim-duration', `${duration}s`);
 });
 
 // Animation Interval
@@ -88,6 +92,7 @@ animInterval.addEventListener("input", () => {
     let input = Number(animInterval.value);
     input = Math.min(30, Math.max(0, input));
     interval = input;
+    resetAnimation(text);
 });
 
 animInterval.addEventListener("blur", () => {
@@ -96,19 +101,9 @@ animInterval.addEventListener("blur", () => {
 
 // Animation Type
 animSelect.addEventListener("change", () => {
-  cancelDelay(); // Cancel any ongoing delay
-  removeAnimationClasses(text);
   currentAnimation = `anim-${animSelect.value}`;
-  text.classList.add(currentAnimation);
+  resetAnimation(text);
   buttons[0].textContent = animSelect.value + "▼";
-});
-
-animDuration.addEventListener("change", () => {
-  cancelDelay(); // Cancel any ongoing delay
-});
-
-animInterval.addEventListener("change", () => {
-  cancelDelay(); // Cancel any ongoing delay
 });
 
 text.addEventListener("animationend", async () => {
