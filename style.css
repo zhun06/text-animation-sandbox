@@ -251,7 +251,6 @@ input {
 }
 #text {
   overflow: hidden; 
-  text-overflow: ellipsis;
   width: 1ch;            /* start width with 1 character */
   font-family: var(--font-style), serif;
   font-size: var(--text-size);
