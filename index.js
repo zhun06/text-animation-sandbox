@@ -33,11 +33,30 @@ const backgroundColor = colorContainer.querySelector("#backgroundColor");
 const textColor = colorContainer.querySelector("#textColor");
 const textHighlight = colorContainer.querySelector('#textHighlight');
 
+// Create a hidden span for measurement
+const mirror = document.createElement('span');
+mirror.style.visibility = 'hidden';
+mirror.style.position = 'absolute';
+mirror.style.whiteSpace = 'pre'; // preserve spaces
+document.body.appendChild(mirror);
 
-text.addEventListener("input", () => {
-  // set width based on character length
-  text.style.width = `${text.value.length + 1}ch`; 
-});
+function resizeInput() {
+  // Copy font styles from input
+  const style = getComputedStyle(text);
+  mirror.style.font = style.font;
+  mirror.style.fontSize = style.fontSize;
+  mirror.style.fontFamily = style.fontFamily;
+  mirror.style.fontWeight = style.fontWeight;
+  
+  // Set the mirror input to the text value (or placeholder if empty)
+  mirror.textContent = text.value || text.placeholder;
+
+  // Set input width to mirror width + small buffer
+  text.style.width = mirror.offsetWidth + 2 + 'px';
+}
+
+// Resize whenever the user types
+text.addEventListener('input', resizeInput);
 
 canvas.addEventListener("pointermove", () => {
   text.focus();
