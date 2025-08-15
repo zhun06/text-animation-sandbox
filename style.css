@@ -10,13 +10,13 @@ html {
 /* Mobile Default */
 @media (max-width: 1000px) { 
   html {
-    font-size: 8px; 
+    font-size: 8px; /* smaller rem on mobile */
   }
 }
 body { 
   display: flex;
   flex-direction: column;
-  height: 150vh;
+  height: 180vh;
   width: 100vw;
   background-color: #fafafa;
   color: #1a1a1a;
@@ -27,13 +27,11 @@ body.dark {
 }
 #title {
   text-align: center;
-  font-size: 2rem;
   margin: 1rem
 }
 header {
   display: flex;
   justify-content: center;
-  overflow-x: scroll;
   gap: 1rem;
 }
 button {
@@ -53,7 +51,7 @@ input {
   border-radius: 0;         /* Remove iOS rounding */
   box-shadow: none;
   outline: none;
-  background-color: #e0e0e0;
+  background-color: #f0f0f0;
   color: #1a1a1a;
 }
 .dark input {
@@ -242,7 +240,7 @@ input {
 }
 #canvas {
   width: 95%;
-  height: 95%;
+  height: 97%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -277,15 +275,16 @@ input {
 }
 
 /* Mobile Adjustments */
-@media (max-width: 430px) { 
+@media (max-width: 430px) { /* portrait-specific styles */
   body {
     height: 90vh;
   }
   header {
     gap: 0rem;
   }
+  
 }
-@media (max-width: 1000px) and (orientation: landscape) {  
+@media (max-width: 1000px) and (orientation: landscape) {  /* landscape-specific styles */
   body {
     height: 130vh;
   }
