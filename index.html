@@ -6,175 +6,135 @@
     <title>Text animation</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark">
-    <div>
-        <button id="darkMode">🌙 Dark Mode</button>
-        <h1 id="title">Text animation</h1>
+<body>
+    <h1>Text animation sandbox</h1>
+    <nav id="tabs">
+        <button data-tab="textStyle">Text</button>
+        <button data-tab="animation">Animation</button>
+        <button data-tab="border">Border</button>
+        <button data-tab="colors">Colors</button>
+    </nav>
+
+    <div id="textStyle" class="tab-panel active" >
+        <label>
+            Font Style:
+            <select id="font">
+                <option value="Serif" selected>serif</option>
+                <option value="Arial">Arial</option>
+                <option value="Bookman">Bookman</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>            
+                <option value="Courier">Courier</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Garamond">Garamond</option>                              
+                <option value="Georgia">Georgia</option>
+                <option value="Helvetica">Helvetica</option> 
+                <option value="Impact">Impact</option>     
+                <option value="Palatino">Palatino</option> 
+                <option value="Tahoma">Tahoma</option>                 
+                <option value="Times">Times</option>                 
+                <option value="Times New Roman">Times New Roman</option>                                                 
+                <option value="Trebuchet MS">Trebuchet MS</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+        </label>
+        <label>
+            Text Size: 
+            <input type="number" id="textSize" min="12" max="100" value="24">
+        </label>
+        <label>
+            Text Outline:
+            <input style="flex: 1" type="number" id="textOutline" min="0" max="20" value="0">
+        </label>
     </div>
-    <header class="controls">
-        <div id="animations">
-            <div style="display: flex; position: relative;">
-                <span>Animation:</span>
-                <button class="dropdownButton">none ▼</button>
-                <div class="dropdownContent">
-                    <select size="5" id="animationType">
-                        <option value="none" selected>none</option>
-                        <option value="heartBeat">heartBeat</option>
-                        <option value="fadeIn">fadeIn</option>
-                        <option value="fadeOut">fadeOut</option>
-                        <option value="rotate">rotate</option>
-                        <option value="slideInLeft">slideInLeft</option>
-                        <option value="slideOutRight">slideOutRight</option>
-                        <option value="slideInBottom">slideInBottom</option>
-                        <option value="slideOutTop">slideOutTop</option>
-                        <option value="grow">grow</option>
-                        <option value="shrink">shrink</option>
-                        <option value="bounce">bounce</option>
-                        <option value="pulse">pulse</option>
-                        <option value="wiggle">wiggle</option>
-                        <option value="flipY">flipY</option>
-                        <option value="flipX">flipX</option>
-                        <option value="shake">shake</option>
-                        <option value="swing">swing</option>
-                        <option value="zoomIn">zoomIn</option>
-                        <option value="zoomOut">zoomOut</option>
-                        <option value="blurIn">blurIn</option>
-                        <option value="ripple">ripple</option>
-                    </select>
-                </div>
-            </div>
-            <div>
-                <label style="display: flex;">
-                    Animation Duration:
-                    <input style="flex: 1;" type="number" id="animationDuration" min="1" max="30" value="1">
-                </label>
-            </div>
-            <div>
-                <label style="display: flex;">
-                    Animation Interval:
-                    <input style="flex: 1;" type="number" id="animationInterval" min="0" max="30" value="0">
-                </label>
-            </div>
-        </div>
 
-        <div id="textStyle">
-            <div style="display: flex; position: relative;">
-                <span>Font Style:</span>
-                <button style="flex: 1;" class="dropdownButton">serif ▼</button>
-                <div class="dropdownContent">
-                    <select size="5" id="fontStyle">
-                        <option value="Serif" selected>serif</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Bookman">Bookman</option>
-                        <option value="Comic Sans MS">Comic Sans MS</option>            
-                        <option value="Courier">Courier</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Garamond">Garamond</option>                              
-                        <option value="Georgia">Georgia</option>
-                        <option value="Helvetica">Helvetica</option> 
-                        <option value="Impact">Impact</option>     
-                        <option value="Palatino">Palatino</option> 
-                        <option value="Tahoma">Tahoma</option>                 
-                        <option value="Times">Times</option>                 
-                        <option value="Times New Roman">Times New Roman</option>                                                 
-                        <option value="Trebuchet MS">Trebuchet MS</option>
-                        <option value="Verdana">Verdana</option>
-                    </select>
-                </div>
-            </div>
-
-            <div>
-                <label style="display: flex;">
-                    Text Size: 
-                    <input style="flex: 1" type="number" id="textSize" min="12" max="100" value="24">
-                </label>
-            </div>
-
-            <div>
-                <label style="display: flex;">
-                    Text Outline:
-                    <input style="flex: 1" type="number" id="textShadow" min="0" max="20" value="0">
-                </label>
-            </div>
-
-            <div>
-                <label style="display: flex;">
-                    Outline Color: 
-                    <input style="flex: 1" type="color" id="outlineColor" value="#000">
-                </label>
-            </div>
-        </div>
-        
-        <div id="borderStyle">
-            <div style="display: flex; position: relative;">
-                <span>Border Style:</span>
-                <button style="flex: 1;" class="dropdownButton">none ▼</button>
-                <div class="dropdownContent">
-                    <select size="5" id="boxStyle">
-                        <option value="none" selected>none</option>
-                        <option value="solid">solid</option>
-                        <option value="dashed">dashed</option>
-                        <option value="dotted">dotted</option>
-                        <option value="double">double</option>
-                        <option value="groove">grooved</option>
-                        <option value="ridge">ridge</option>
-                        <option value="inset">inset</option>
-                        <option value="outset">outset</option>
-                    </select>
-                </div>
-            </div>
-        
-            <div>
-                <label style="display: flex;">
-                    Border Width: 
-                    <input style="flex: 1" type="number" id="borderWidth" min="0" max="30" value="0">
-                </label>
-            </div>
-
-            <div>
-                <label style="display: flex;">
-                    Border Radius:
-                    <input style="flex: 1" type="number" id="borderRadius" min="0" max="200" value="0">
-                </label>
-            </div>
-
-            <div>
-                <label style="display: flex;">
-                    Border Color: 
-                    <input style="flex: 1" type="color" id="borderColor" value="#000">
-                </label>
-            </div>
-        </div>
-
-        <div id="colors">
-            <div>
-                <label style="display: flex;">
-                    Background Color: 
-                    <input style="flex: 1" type="color" id="backgroundColor" value="#FFF">
-                </label>
-            </div>
-            <div>
-                <label style="display: flex;">
-                    Text Color: 
-                    <input style="flex: 1" type="color" id="textColor" value="#000">
-                </label>
-            </div>
-            
-            <div>
-                <label style="display: flex;">
-                    Text Highlight: 
-                    <input style="flex: 1" type="color" id="textHighlight" value="#FFF">
-                </label>
-            </div>
-        </div>
-
-    </header>
-    <div id="canvasBorder">
-        <div id="canvas">
-            <input type="text" id="text" placeholder="" />
-        </div>
+        <div id="animation" class="tab-panel">
+        <label>
+            Animation:
+            <select id="animationType">
+                <option value="none" selected>none</option>
+                <option value="heartBeat">heartBeat</option>
+                <option value="fadeIn">fadeIn</option>
+                <option value="fadeOut">fadeOut</option>
+                <option value="rotate">rotate</option>
+                <option value="slideInLeft">slideInLeft</option>
+                <option value="slideOutRight">slideOutRight</option>
+                <option value="slideInBottom">slideInBottom</option>
+                <option value="slideOutTop">slideOutTop</option>
+                <option value="grow">grow</option>
+                <option value="shrink">shrink</option>
+                <option value="bounce">bounce</option>
+                <option value="pulse">pulse</option>
+                <option value="wiggle">wiggle</option>
+                <option value="flipY">flipY</option>
+                <option value="flipX">flipX</option>
+                <option value="shake">shake</option>
+                <option value="swing">swing</option>
+                <option value="zoomIn">zoomIn</option>
+                <option value="zoomOut">zoomOut</option>
+                <option value="blurIn">blurIn</option>
+                <option value="ripple">ripple</option>
+            </select>
+        </label>   
+        <label>
+            Animation Duration:
+            <input type="number" id="animationDuration" min="1" max="30" value="1">
+        </label>
+        <label>
+            Animation Interval:
+            <input type="number" id="animationInterval" min="0" max="30" value="0">
+        </label>
     </div>
-    <script src="index.js"></script>
+
+    <div id="border" class="tab-panel">
+        <label>
+            Border Style:
+            <select id="borderStyle">
+                <option value="none">none</option>
+                <option value="solid" selected>solid</option>
+                <option value="dashed">dashed</option>
+                <option value="dotted">dotted</option>
+                <option value="double">double</option>
+                <option value="groove">grooved</option>
+                <option value="ridge">ridge</option>
+                <option value="inset">inset</option>
+                <option value="outset">outset</option>
+            </select>
+        </label>
+        <label>
+            Border Width: 
+            <input type="number" id="borderWidth" min="0" max="30" value="0">
+        </label>
+        <label>
+            Border Radius:
+            <input type="number" id="borderRadius" min="0" max="100" value="0">
+        </label>
+    </div>
+        
+    <div id="colors" class="tab-panel">
+        <label>
+            Background Color: 
+            <input type="color" id="backgroundColor" value="#FFF">
+        </label>
+        <label>
+            Text Color: 
+            <input type="color" id="textColor" value="#000">
+        </label>
+        <label>
+            Text Highlight: 
+            <input type="color" id="highlightColor" value="#FFF">
+        </label>
+        <label>
+            Text Outline:
+            <input type="color" id="outlineColor">
+        </label>
+        <label>
+            Border Color: 
+            <input type="color" id="borderColor" value="#000">
+        </label>
+    </div>
+
+    <input type="text" id="temp" placeholder="" />
+
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
-
