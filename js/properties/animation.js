@@ -1,7 +1,6 @@
-import { state } from './state.js';
-import { TextObject } from './textObject.js';
+import { state } from '../core/state.js';
 
-// Get elements
+// Get control elements
 const animation = document.querySelector('#animation');
 const animationTypeControl = animation.querySelector('#animationTypeControl');
 const animationDurationControl = animation.querySelector('#animationDurationControl');
@@ -21,20 +20,11 @@ export function bindAnimationControl() {
     bindIntervalControl();
 }
 
-// ---- Initialize functions ----
+// Animation type
 function initType(textObj) {
     textObj.el.classList.add(textObj.animation.type);
 }
 
-function initDuration(textObj) {
-    textObj.el.style.setProperty('--anim-duration', textObj.animation.duration);
-}
-
-function initInterval(textObj) {
-    textObj.animation.interval = textObj.animation.interval; // already initialized
-}
-
-// ---- Bind controls ----
 function bindTypeControl() {
     animationTypeControl.addEventListener('input', () => {
         const textObj = state.activeText;
@@ -44,6 +34,11 @@ function bindTypeControl() {
 
         applyAnimation(textObj);
     });
+}
+
+// Animation duration
+function initDuration(textObj) {
+    textObj.el.style.setProperty('--anim-duration', textObj.animation.duration);
 }
 
 function bindDurationControl() {
@@ -59,6 +54,12 @@ function bindDurationControl() {
     });
 }
 
+
+// Animation interval
+function initInterval(textObj) {
+    textObj.animation.interval = textObj.animation.interval; // already initialized
+}
+
 function bindIntervalControl() {
     animationIntervalControl.addEventListener('input', () => {
         const textObj = state.activeText;
@@ -71,8 +72,8 @@ function bindIntervalControl() {
     });
 }
 
-// ---- Utility ----
-function applyAnimation(textObj) {
+// Utility 
+export function applyAnimation(textObj) {
     const el = textObj.el;
     const { type, duration, interval } = textObj.animation;
 
@@ -104,4 +105,3 @@ function removeAnimationClasses(el) {
         if (cls.startsWith('anim-')) el.classList.remove(cls);
     });
 }
-

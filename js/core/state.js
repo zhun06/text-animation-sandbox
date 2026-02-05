@@ -1,0 +1,33 @@
+import { updateTextStyleControl } from "../ui/textStyleControl.js";
+import { updateColorsControl } from "../ui/colorsControl.js";
+import { updateBorderControl } from "../ui/borderControl.js";
+import { updateAnimationControl } from "../ui/animationControl.js";
+
+// Global state
+export const state = {
+  canvas: document.getElementById("canvas"), // canvas
+  activeText: null, // currently selected text object
+  texts: [] // array of all TextObjects
+}; 
+
+// Set current active text
+export function setActiveText(textObj) {
+  // remove previous active
+  if (state.activeText) {
+    state.activeText.el.classList.remove("active");
+  }
+
+  // add new active
+  if (textObj) {
+    state.activeText = textObj;
+    textObj.el.classList.add("active");
+  }
+}
+
+// Update controls to take current active text's properties
+export function updateControls() {
+  updateTextStyleControl();
+  updateColorsControl();
+  updateBorderControl();
+  updateAnimationControl();
+}

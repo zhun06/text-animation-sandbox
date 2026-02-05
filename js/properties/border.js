@@ -1,5 +1,4 @@
-import { state } from './state.js';
-import { TextObject } from './textObject.js';
+import { state } from '../core/state.js';
 
 // Get control elements
 const border = document.querySelector('#border');
@@ -32,7 +31,7 @@ function bindStyleControl() {
         if (!textObj) return;
 
         textObj.border.style = borderStyleControl.value; // store border style
-        textObj.el.style.borderStyle = borderStyleControl.value; // apply border style
+        textObj.el.style.borderStyle = textObj.border.style; // apply border style
     });
 }
 
@@ -47,8 +46,8 @@ function bindWidthControl() {
         if (!textObj) return;
 
         let width = Math.min(30, Math.max(0, borderWidthControl.value)); // clamp border width
-        textObj.border.width = width; // store border width
-        textObj.el.style.borderWidth = width + 'px'; // apply border width
+        textObj.border.width = width + 'px'; // store border width
+        textObj.el.style.borderWidth = textObj.border.width; // apply border width
     });
 }
 
@@ -63,7 +62,7 @@ function bindRadiusControl() {
         if (!textObj) return;
 
         let radius = Math.min(100, Math.max(0, borderRadiusControl.value)); // clamp border radius
-        textObj.border.radius = radius; // store border radius
-        textObj.el.style.borderRadius = radius + 'px'; // apply border radius
+        textObj.border.radius = radius + 'px'; // store border radius
+        textObj.el.style.borderRadius = textObj.border.radius; // apply border radius
     });
 }

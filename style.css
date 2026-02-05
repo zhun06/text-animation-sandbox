@@ -8,6 +8,7 @@ body {
   align-items: center;
   height: 100vh;
   width: 100vw;
+  background-color: white;
 }
 #title {
   text-align: center;
@@ -20,12 +21,17 @@ body {
   flex-direction: row;
 }
 #canvas {
+  position: relative;
   height: 80vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #eeecec;
+}
+.text {
+  position: absolute;
+  cursor: move;
 }
 .text.active {
   outline: 2px solid #4da3ff;
@@ -147,8 +153,4 @@ body {
   0% { transform: scale(0.8); opacity: 0.5; }
   50% { transform: scale(1.2); opacity: 0.3; }
   100% { transform: scale(1); opacity: 0; }
-}
-
-#temp {
-  text-align: center;
 }

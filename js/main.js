@@ -1,15 +1,16 @@
-import './tabs.js';
-import { createTextObject } from './textFactory.js';
-import { state } from './state.js';
-import { bindTextStyleControl } from './textStyle.js';
-import { bindColorsControl } from './colors.js';
-import { bindBorderControl } from './border.js';
-import { bindAnimationControl } from './animation.js';
+import './ui/tabs.js';
+import { createTextObject } from './core/textFactory.js';
+import { state } from './core/state.js';
+import { bindTextStyleControl } from './properties/textStyle.js';
+import { bindColorsControl } from './properties/colors.js';
+import { bindBorderControl } from './properties/border.js';
+import { bindAnimationControl } from './properties/animation.js';
 
-const tempTextObj = createTextObject(document.getElementById("temp"));
-state.texts.push(tempTextObj);
-state.activeText = (tempTextObj);
+const temp1 = createTextObject(document.getElementById("temp1"));
+state.texts.push(temp1);
 
+const temp2= createTextObject(document.getElementById("temp2"));
+state.texts.push(temp2);
 
 bindTextStyleControl();
 bindColorsControl();

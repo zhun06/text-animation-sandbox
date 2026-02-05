@@ -1,5 +1,4 @@
-import { state } from './state.js';
-import { TextObject } from './textObject.js';
+import { state } from '../core/state.js';
 
 // Get control elements
 const colors = document.querySelector('#colors');
@@ -44,7 +43,7 @@ function bindTextControl() {
         if (!textObj) return;
 
         textObj.colors.text = textColorControl.value; // store text color
-        textObj.el.style.color = textColorControl.value; // apply text color
+        textObj.el.style.color = textObj.colors.text; // apply text color
     });
 }
 
@@ -59,7 +58,7 @@ function bindHighlightControl() {
         if (!textObj) return;
 
         textObj.colors.highlight = highlightColorControl.value; // store highlight color
-        textObj.el.style.backgroundColor = highlightColorControl.value; // apply highlight color
+        textObj.el.style.backgroundColor = textObj.colors.highlight; // apply highlight color
     
     });
 }
@@ -76,7 +75,7 @@ function bindOutlineControl() {
         if (!textObj) return;
 
         textObj.colors.outline = outlineColorControl.value; // store outline color
-        textObj.el.style.webkitTextStrokeColor = outlineColorControl.value; // apply outline color
+        textObj.el.style.webkitTextStrokeColor = textObj.colors.outline; // apply outline color
     });
 }
 
@@ -92,6 +91,6 @@ function bindBorderControl() {
         if (!textObj) return;
 
         textObj.colors.borderColor = borderColorControl.value; // store border color
-        textObj.el.style.borderColor = borderColorControl.value; // apply border color
+        textObj.el.style.borderColor = textObj.colors.borderColor; // apply border color
     });
 }

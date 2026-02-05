@@ -1,9 +1,8 @@
 import { TextObject } from './textObject.js';
-import { initializeTextStyle } from './textStyle.js'
-import { initializeColors } from './colors.js'
-import { initializeBorder } from './border.js'
-import { initializeAnimation } from './animation.js'
-
+import { initializeTextStyle } from '../properties/textStyle.js'
+import { initializeColors } from '../properties/colors.js'
+import { initializeBorder } from '../properties/border.js'
+import { initializeAnimation } from '../properties/animation.js'
 
 export function createTextObject(el) {
     const textObj = new TextObject(el);

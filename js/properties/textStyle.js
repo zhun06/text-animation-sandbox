@@ -1,5 +1,4 @@
-import { state } from './state.js';
-import { TextObject } from './textObject.js';
+import { state } from '../core/state.js';
 
 // Get control elements
 const textStyle = document.querySelector('#textStyle');
@@ -32,7 +31,7 @@ function bindFontControl() {
         if (!textObj) return;
 
         textObj.textStyle.font = fontControl.value; // store font
-        textObj.el.style.fontFamily = fontControl.value; // apply font
+        textObj.el.style.fontFamily = textObj.textStyle.font; // apply font
     });
 }
 
@@ -47,8 +46,8 @@ function bindSizeControl() {
         if (!textObj) return;
 
         let size = Math.min(100, Math.max(12, textSizeControl.value)); // clamp text size
-        textObj.textStyle.fontSize = size; // store text size
-        textObj.el.style.fontSize = size + 'px'; // apply text size
+        textObj.textStyle.size = size + 'px'; // store text size
+        textObj.el.style.fontSize = textObj.textStyle.size; // apply text size
     });
 }
 
@@ -63,7 +62,7 @@ function bindOutlineControl() {
         if (!textObj) return;
 
         let outline = Math.min(20, Math.max(0, textOutlineControl.value)); // clamp outline
-        textObj.textStyle.outline = outline; // store outline
-        textObj.el.style.webkitTextStrokeWidth = outline + 'px'; // apply outline
+        textObj.textStyle.outline = outline + 'px'; // store outline
+        textObj.el.style.webkitTextStrokeWidth = textObj.textStyle.outline; // apply outline
     });
 }
