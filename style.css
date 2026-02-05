@@ -15,9 +15,21 @@ body {
 .tab-panel {
   display: none;
 }
-.active.tab-panel {
+.tab-panel.active {
   display: flex;
   flex-direction: row;
+}
+#canvas {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeecec;
+}
+.text.active {
+  outline: 2px solid #4da3ff;
+  outline-offset: 4px;
 }
 
 .anim-none { animation: none;}
@@ -138,19 +150,5 @@ body {
 }
 
 #temp {
-  font-family: var(--font-style);
-  font-size: var(--text-size);
-  text-shadow:
-    var(--text-shadow) var(--text-shadow) 0 var(--shadow-color),
-    calc(-1 * var(--text-shadow)) var(--text-shadow) 0 var(--shadow-color),
-    var(--text-shadow) calc(-1 * var(--text-shadow)) 0 var(--shadow-color),
-    calc(-1 * var(--text-shadow)) calc(-1 * var(--text-shadow)) 0 var(--shadow-color),
-    0 var(--text-shadow) 0 var(--shadow-color),
-    var(--text-shadow) 0 0 var(--shadow-color),
-    0 calc(-1 * var(--text-shadow)) 0 var(--shadow-color),
-    calc(-1 * var(--text-shadow)) 0 0 var(--shadow-color);
-  border-style: var(--border-style);
-  border-width: var(--border-width);
-  border-radius: var(--border-radius);
   text-align: center;
 }

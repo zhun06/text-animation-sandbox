@@ -1,30 +1,69 @@
 import { state } from './state.js';
 import { TextObject } from './textObject.js';
 
-// Get elements
+// Get control elements
 const textStyle = document.querySelector('#textStyle');
-const fontSelect = textStyle.querySelector('#font');
-const textSize = textStyle.querySelector('#textSize');
-const textOutline = textStyle.querySelector('#textOutline');
+const fontControl = textStyle.querySelector('#fontControl');
+const textSizeControl = textStyle.querySelector('#textSizeControl');
+const textOutlineControl = textStyle.querySelector('#textOutlineControl');
+
+// Initialize
+export function initializeTextStyle(textObj) {
+    initFont(textObj);
+    initSize(textObj);
+    initOutline(textObj);
+}
+
+// Bind controls
+export function bindTextStyleControl() {
+    bindFontControl();
+    bindSizeControl();
+    bindOutlineControl();
+}
 
 // Font Style
-state.activeText.style.setProperty('--font-style', `"${fontSelect.value}"`);
-fontSelect.addEventListener("input", () => {
-    state.activeText.style.setProperty('--font-style', `"${fontSelect.value}"`); 
-});
+function initFont(textObj) {
+    textObj.el.style.fontFamily = textObj.textStyle.font;
+}
+
+function bindFontControl() {
+    fontControl.addEventListener("input", () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        textObj.textStyle.font = fontControl.value; // store font
+        textObj.el.style.fontFamily = fontControl.value; // apply font
+    });
+}
 
 // Text Size
-textSize.addEventListener("input", () => {
-    let size = Number(textSize.value);
-    size = Math.min(100, Math.max(12, size));
-    textSize.value = size; 
-    state.activeText.style.setProperty('--text-size', `${size}px`);
-});
+function initSize(textObj) {
+    textObj.el.style.fontSize = textObj.textStyle.size;
+}
+
+function bindSizeControl() {
+    textSizeControl.addEventListener("input", () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        let size = Math.min(100, Math.max(12, textSizeControl.value)); // clamp text size
+        textObj.textStyle.fontSize = size; // store text size
+        textObj.el.style.fontSize = size + 'px'; // apply text size
+    });
+}
 
 // Text Outline
-state.activeText.style.setProperty('--text-shadow', `${textOutline.value}px`);
-textOutline.addEventListener("input", () => {
-  let size = Number(textOutline.value);
-  size = Math.min(20, Math.max(0, size));
-  state.activeText.style.setProperty('--text-shadow', `${size}px`);
-});
+function initOutline(textObj) {
+    textObj.el.style.webkitTextStrokeWidth = textObj.textStyle.outline;
+}
+
+function bindOutlineControl() {
+    textOutlineControl.addEventListener("input", () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        let outline = Math.min(20, Math.max(0, textOutlineControl.value)); // clamp outline
+        textObj.textStyle.outline = outline; // store outline
+        textObj.el.style.webkitTextStrokeWidth = outline + 'px'; // apply outline
+    });
+}

@@ -1,6 +1,5 @@
-
 export const state = {
-  canvas: document.body,
-  activeText: document.getElementById("temp"),   // currently selected text object
-  texts: []           // array of all TextObjects
+  canvas: document.getElementById("canvas"), // canvas
+  activeText: null, // currently selected text object
+  texts: [] // array of all TextObjects
 };

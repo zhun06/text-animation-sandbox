@@ -1,7 +1,17 @@
-import './state.js';
-import './textObject.js';
 import './tabs.js';
-import './textStyle.js';
-import './animation.js';
-import './border.js';
-import './colors.js';
+import { createTextObject } from './textFactory.js';
+import { state } from './state.js';
+import { bindTextStyleControl } from './textStyle.js';
+import { bindColorsControl } from './colors.js';
+import { bindBorderControl } from './border.js';
+import { bindAnimationControl } from './animation.js';
+
+const tempTextObj = createTextObject(document.getElementById("temp"));
+state.texts.push(tempTextObj);
+state.activeText = (tempTextObj);
+
+
+bindTextStyleControl();
+bindColorsControl();
+bindBorderControl();
+bindAnimationControl();

@@ -10,15 +10,16 @@
     <h1>Text animation sandbox</h1>
     <nav id="tabs">
         <button data-tab="textStyle">Text</button>
-        <button data-tab="animation">Animation</button>
-        <button data-tab="border">Border</button>
         <button data-tab="colors">Colors</button>
+        <button data-tab="border">Border</button>
+        <button data-tab="animation">Animation</button>
+        
     </nav>
 
     <div id="textStyle" class="tab-panel active" >
         <label>
             Font Style:
-            <select id="font">
+            <select id="fontControl">
                 <option value="Serif" selected>serif</option>
                 <option value="Arial">Arial</option>
                 <option value="Bookman">Bookman</option>
@@ -39,18 +40,66 @@
         </label>
         <label>
             Text Size: 
-            <input type="number" id="textSize" min="12" max="100" value="24">
+            <input type="number" id="textSizeControl" min="12" max="100" value="24">
         </label>
         <label>
             Text Outline:
-            <input style="flex: 1" type="number" id="textOutline" min="0" max="20" value="0">
+            <input type="number" id="textOutlineControl" min="0" max="20" value="0">
         </label>
     </div>
 
-        <div id="animation" class="tab-panel">
+    <div id="colors" class="tab-panel">
+        <label>
+            Background Color: 
+            <input type="color" id="backgroundColorControl" value="#FFF">
+        </label>
+        <label>
+            Text Color: 
+            <input type="color" id="textColorControl" value="#000">
+        </label>
+        <label>
+            Text Highlight: 
+            <input type="color" id="highlightColorControl" value="#FFF">
+        </label>
+        <label>
+            Text Outline:
+            <input type="color" id="outlineColorControl">
+        </label>
+        <label>
+            Border Color: 
+            <input type="color" id="borderColorControl" value="#000">
+        </label>
+    </div>
+
+    <div id="border" class="tab-panel">
+        <label>
+            Border Style:
+            <select id="borderStyleControl">
+                <option value="none">none</option>
+                <option value="solid" selected>solid</option>
+                <option value="dashed">dashed</option>
+                <option value="dotted">dotted</option>
+                <option value="double">double</option>
+                <option value="groove">grooved</option>
+                <option value="ridge">ridge</option>
+                <option value="inset">inset</option>
+                <option value="outset">outset</option>
+            </select>
+        </label>
+        <label>
+            Border Width: 
+            <input type="number" id="borderWidthControl" min="0" max="30" value="0">
+        </label>
+        <label>
+            Border Radius:
+            <input type="number" id="borderRadiusControl" min="0" max="100" value="0">
+        </label>
+    </div>
+
+    <div id="animation" class="tab-panel">
         <label>
             Animation:
-            <select id="animationType">
+            <select id="animationTypeControl">
                 <option value="none" selected>none</option>
                 <option value="heartBeat">heartBeat</option>
                 <option value="fadeIn">fadeIn</option>
@@ -77,63 +126,18 @@
         </label>   
         <label>
             Animation Duration:
-            <input type="number" id="animationDuration" min="1" max="30" value="1">
+            <input type="number" id="animationDurationControl" min="1" max="30" value="1">
         </label>
         <label>
             Animation Interval:
-            <input type="number" id="animationInterval" min="0" max="30" value="0">
+            <input type="number" id="animationIntervalControl" min="0" max="30" value="0">
         </label>
     </div>
 
-    <div id="border" class="tab-panel">
-        <label>
-            Border Style:
-            <select id="borderStyle">
-                <option value="none">none</option>
-                <option value="solid" selected>solid</option>
-                <option value="dashed">dashed</option>
-                <option value="dotted">dotted</option>
-                <option value="double">double</option>
-                <option value="groove">grooved</option>
-                <option value="ridge">ridge</option>
-                <option value="inset">inset</option>
-                <option value="outset">outset</option>
-            </select>
-        </label>
-        <label>
-            Border Width: 
-            <input type="number" id="borderWidth" min="0" max="30" value="0">
-        </label>
-        <label>
-            Border Radius:
-            <input type="number" id="borderRadius" min="0" max="100" value="0">
-        </label>
-    </div>
-        
-    <div id="colors" class="tab-panel">
-        <label>
-            Background Color: 
-            <input type="color" id="backgroundColor" value="#FFF">
-        </label>
-        <label>
-            Text Color: 
-            <input type="color" id="textColor" value="#000">
-        </label>
-        <label>
-            Text Highlight: 
-            <input type="color" id="highlightColor" value="#FFF">
-        </label>
-        <label>
-            Text Outline:
-            <input type="color" id="outlineColor">
-        </label>
-        <label>
-            Border Color: 
-            <input type="color" id="borderColor" value="#000">
-        </label>
+    <div id="canvas">
+        <input type="text" id="temp"/>
     </div>
 
-    <input type="text" id="temp" placeholder="" />
 
     <script type="module" src="./js/main.js"></script>
 </body>

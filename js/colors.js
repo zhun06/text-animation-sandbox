@@ -1,40 +1,97 @@
 import { state } from './state.js';
 import { TextObject } from './textObject.js';
 
-// Get elements
+// Get control elements
 const colors = document.querySelector('#colors');
-const backgroundColor = colors.querySelector("#backgroundColor");
-const textColor = colors.querySelector("#textColor");
-const highlightColor = colors.querySelector('#highlightColor');
-const outlineColor = colors.querySelector("#outlineColor");
-const borderColor = colors.querySelector("#borderColor");
+const backgroundColorControl = colors.querySelector("#backgroundColorControl");
+const textColorControl = colors.querySelector("#textColorControl");
+const highlightColorControl = colors.querySelector('#highlightColorControl');
+const outlineColorControl = colors.querySelector("#outlineColorControl");
+const borderColorControl = colors.querySelector("#borderColorControl");
 
-// Outline Color
-state.activeText.style.setProperty('--shadow-color', outlineColor.value);
-outlineColor.addEventListener("input", () => {
-    state.activeText.style.setProperty('--shadow-color', outlineColor.value);
-});
+// Initialize
+export function initializeColors(textObj) {
+    initText(textObj);
+    initHighlight(textObj);
+    initOutline(textObj);
+    initBorder(textObj);
+}
 
-// Border Color
-state.activeText.style.borderColor = borderColor.value;
-borderColor.addEventListener("input", () => {
-  state.activeText.style.borderColor = borderColor.value; 
-});
+// Bind controls
+export function bindColorsControl() {
+    bindBackgroundControl();
+    bindTextControl();
+    bindHighlightControl();
+    bindOutlineControl();
+    bindBorderControl();
+}
 
 // Background Color
-state.canvas.style.backgroundColor = backgroundColor.value; 
-backgroundColor.addEventListener("input", () => {
-  state.canvas.style.backgroundColor = backgroundColor.value; 
-});
+function bindBackgroundControl() {
+    backgroundColorControl.addEventListener("input", () => {
+      state.canvas.style.backgroundColor = backgroundColorControl.value; 
+    });
+}
 
 // Text Color
-state.activeText.style.color = textColor.value; 
-textColor.addEventListener("input", () => {
-    state.activeText.style.color = textColor.value; 
-});
+function initText(textObj) {
+    textObj.el.style.color = textObj.colors.text;
+}
 
-// Text Highlight
-state.activeText.style.backgroundColor = highlightColor.value; 
-highlightColor.addEventListener("input", () => {
-    state.activeText.style.backgroundColor = highlightColor.value; 
-});
+function bindTextControl() {
+    textColorControl.addEventListener("input", () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        textObj.colors.text = textColorControl.value; // store text color
+        textObj.el.style.color = textColorControl.value; // apply text color
+    });
+}
+
+// Highlight Color
+function initHighlight(textObj) {
+    textObj.el.style.backgroundColor = textObj.colors.highlight;
+}
+
+function bindHighlightControl() {
+    highlightColorControl.addEventListener("input", () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        textObj.colors.highlight = highlightColorControl.value; // store highlight color
+        textObj.el.style.backgroundColor = highlightColorControl.value; // apply highlight color
+    
+    });
+}
+
+
+// Outline Color
+function initOutline(textObj) {
+    textObj.el.style.webkitTextStrokeColor = textObj.colors.outline;
+}
+
+function bindOutlineControl() {
+    outlineColorControl.addEventListener("input", () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        textObj.colors.outline = outlineColorControl.value; // store outline color
+        textObj.el.style.webkitTextStrokeColor = outlineColorControl.value; // apply outline color
+    });
+}
+
+
+// Border Color
+function initBorder(textObj) {
+    textObj.el.style.borderColor = textObj.colors.border;
+}
+
+function bindBorderControl() {
+    borderColorControl.addEventListener("input", () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        textObj.colors.borderColor = borderColorControl.value; // store border color
+        textObj.el.style.borderColor = borderColorControl.value; // apply border color
+    });
+}

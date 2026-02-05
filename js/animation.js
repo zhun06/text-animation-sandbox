@@ -3,74 +3,105 @@ import { TextObject } from './textObject.js';
 
 // Get elements
 const animation = document.querySelector('#animation');
-const animSelect = animation.querySelector('#animationType');
-const animDuration = animation.querySelector('#animationDuration');
-const animInterval = animation.querySelector('#animationInterval');
-let delayTimeout; // Lock for delay
-let currentAnimation; 
-let duration = 1;
-let interval = 0;
+const animationTypeControl = animation.querySelector('#animationTypeControl');
+const animationDurationControl = animation.querySelector('#animationDurationControl');
+const animationIntervalControl = animation.querySelector('#animationIntervalControl');
 
-function delay(ms) {
-  return new Promise(resolve => {
-    delayTimeout = setTimeout(resolve, ms);
-  });
+// Initialize
+export function initializeAnimation(textObj) {
+    initType(textObj);
+    initDuration(textObj);
+    initInterval(textObj);
 }
 
-function cancelDelay() {
-  if (delayTimeout) {
-    clearTimeout(delayTimeout);
-    delayTimeout = null;
-  } 
+// Bind controls
+export function bindAnimationControl() {
+    bindTypeControl();
+    bindDurationControl();
+    bindIntervalControl();
 }
 
-function removeAnimationClasses(element) {
-  element.classList.forEach(cls => {
-    if (cls.startsWith('anim-')) element.classList.remove(cls);
-  });
+// ---- Initialize functions ----
+function initType(textObj) {
+    textObj.el.classList.add(textObj.animation.type);
 }
 
-function resetAnimation(element) {
-  cancelDelay(); // Cancel any ongoing delay
-  removeAnimationClasses(element);
-  element.classList.add(currentAnimation);
+function initDuration(textObj) {
+    textObj.el.style.setProperty('--anim-duration', textObj.animation.duration);
 }
 
-// Animations
-// Animation Duration
-state.activeText.style.setProperty('--anim-duration', `${duration}s`); 
-animDuration.addEventListener("input", () => {
-    let input = Number(animDuration.value);
-    input = Math.min(30, Math.max(1, input));
-    duration = input;
-    state.activeText.style.setProperty('--anim-duration', `${duration}s`);
-    resetAnimation(state.activeText);
-});
+function initInterval(textObj) {
+    textObj.animation.interval = textObj.animation.interval; // already initialized
+}
 
-animDuration.addEventListener("change", () => {
-    animDuration.value = duration;
-});
+// ---- Bind controls ----
+function bindTypeControl() {
+    animationTypeControl.addEventListener('input', () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
 
-// Animation Interval
-animInterval.addEventListener("change", () => {
-    let input = Number(animInterval.value);
-    input = Math.min(30, Math.max(0, input));
-    interval = input;
-    resetAnimation(state.activeText);
-});
+        textObj.animation.type = 'anim-' + animationTypeControl.value; // store animation type
 
-animInterval.addEventListener("change", () => {
-    animInterval.value = interval;
-});
+        applyAnimation(textObj);
+    });
+}
 
-// Animation Type
-animSelect.addEventListener("change", () => {
-  currentAnimation = `anim-${animSelect.value}`;
-  resetAnimation(state.activeText);
-});
+function bindDurationControl() {
+    animationDurationControl.addEventListener('input', () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
 
-state.activeText.addEventListener("animationend", async () => {
-  removeAnimationClasses(state.activeText);
-  await delay(interval * 1000);
-  state.activeText.classList.add(currentAnimation);
-});
+        let duration = Math.max(0, parseFloat(animationDurationControl.value) || 0); // clamp animation duration
+        textObj.animation.duration = duration + 's'; // store animation duration
+        textObj.el.style.setProperty('--anim-duration', textObj.animation.duration); // apply animation duration
+
+        applyAnimation(textObj);
+    });
+}
+
+function bindIntervalControl() {
+    animationIntervalControl.addEventListener('input', () => {
+        const textObj = state.activeText;
+        if (!textObj) return;
+
+        let interval = Math.max(0, parseFloat(animationIntervalControl.value) || 0); // clamp animation interval
+        textObj.animation.interval = interval + 's'; // store animation interval
+
+        applyAnimation(textObj);
+    });
+}
+
+// ---- Utility ----
+function applyAnimation(textObj) {
+    const el = textObj.el;
+    const { type, duration, interval } = textObj.animation;
+
+    clearAnimationTimer(textObj);
+    removeAnimationClasses(el);
+
+    const totalDelay =
+        parseFloat(duration) * 1000 +
+        parseFloat(interval) * 1000;
+
+    el.classList.add(type);
+
+    textObj._animTimer = setInterval(() => {
+        removeAnimationClasses(el);
+        void el.offsetWidth; // force reflow
+        el.classList.add(type);
+    }, totalDelay);
+}
+
+function clearAnimationTimer(textObj) {
+    if (textObj._animTimer) {
+        clearInterval(textObj._animTimer);
+        textObj._animTimer = null;
+    }
+}
+
+function removeAnimationClasses(el) {
+    el.classList.forEach(cls => {
+        if (cls.startsWith('anim-')) el.classList.remove(cls);
+    });
+}
+
