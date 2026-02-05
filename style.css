@@ -31,11 +31,12 @@ body {
 }
 .text {
   position: absolute;
+  text-align: center;
   cursor: move;
 }
 .text.active {
   outline: 2px solid #4da3ff;
-  outline-offset: 4px;
+  outline-offset: 2px;
 }
 
 .anim-none { animation: none;}

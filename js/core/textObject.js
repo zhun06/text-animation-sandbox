@@ -30,7 +30,7 @@ export class TextObject {
 
         initializeClass(el); 
         bindSelector(this);
-        bindDrag(this)
+        bindDrag(this);
     } 
 }
 

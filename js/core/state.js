@@ -1,12 +1,13 @@
-import { updateTextStyleControl } from "../ui/textStyleControl.js";
-import { updateColorsControl } from "../ui/colorsControl.js";
-import { updateBorderControl } from "../ui/borderControl.js";
-import { updateAnimationControl } from "../ui/animationControl.js";
+import { updateTextStyleControl } from "../ui/textStyleControls.js";
+import { updateColorsControl } from "../ui/colorsControls.js";
+import { updateBorderControl } from "../ui/borderControls.js";
+import { updateAnimationControl } from "../ui/animationControls.js";
 
 // Global state
 export const state = {
   canvas: document.getElementById("canvas"), // canvas
   activeText: null, // currently selected text object
+  copiedText: null, // for duplicating text object
   texts: [] // array of all TextObjects
 }; 
 

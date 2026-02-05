@@ -9,18 +9,25 @@
 <body>
     <h1>Text animation sandbox</h1>
     <nav id="tabs">
+        <button data-tab="home">Home</button>
         <button data-tab="textStyle">Text</button>
         <button data-tab="colors">Colors</button>
         <button data-tab="border">Border</button>
         <button data-tab="animation">Animation</button>
-        
     </nav>
 
-    <div id="textStyle" class="tab-panel active" >
+    <div id="home" class="tab-panel active">
+        <button id="newTextBtn">Add new text</button>
+        <button id="deleteTextBtn">Delete text</button>
+        <button id="copyTextBtn">Copy text</button>
+        <button id="pasteTextBtn">Paste text</button>
+    </div>
+
+    <div id="textStyle" class="tab-panel" >
         <label>
             Font Style:
             <select id="fontControl">
-                <option value="Serif" selected>serif</option>
+                <option value="Serif" selected>Serif</option>
                 <option value="Arial">Arial</option>
                 <option value="Bookman">Bookman</option>
                 <option value="Comic Sans MS">Comic Sans MS</option>            
@@ -134,11 +141,7 @@
         </label>
     </div>
 
-    <div id="canvas">
-        <input type="text" id="temp1"/>
-        <input type="text" id="temp2"/>
-    </div>
-
+    <div id="canvas"></div>
 
     <script type="module" src="./js/main.js"></script>
 </body>

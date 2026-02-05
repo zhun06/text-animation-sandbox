@@ -1,3 +1,4 @@
+import { state, setActiveText } from './state.js'
 import { TextObject } from './textObject.js';
 import { initializeTextStyle } from '../properties/textStyle.js'
 import { initializeColors } from '../properties/colors.js'
@@ -11,6 +12,9 @@ export function createTextObject(el) {
     initializeColors(textObj);
     initializeBorder(textObj);
     initializeAnimation(textObj);
+
+    state.texts.push(textObj);
+    setActiveText(textObj);
 
     return textObj;
 }

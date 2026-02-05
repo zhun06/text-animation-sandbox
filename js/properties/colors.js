@@ -94,3 +94,13 @@ function bindBorderControl() {
         textObj.el.style.borderColor = textObj.colors.borderColor; // apply border color
     });
 }
+
+// Apply all colors properties
+export function applyColors(textObj) {
+    const { text, highlight, outline, border } = textObj.colors;
+
+    textObj.el.style.color = text;
+    textObj.el.style.backgroundColor = highlight;
+    textObj.el.style.webkitTextStrokeColor = outline;
+    textObj.el.style.borderColor = border;
+}

@@ -66,3 +66,12 @@ function bindRadiusControl() {
         textObj.el.style.borderRadius = textObj.border.radius; // apply border radius
     });
 }
+
+// Apply all border properties
+export function applyBorder(textObj) {
+    const { style, width, radius } = textObj.border;
+
+    textObj.el.style.borderStyle = style;
+    textObj.el.style.borderWidth = width;
+    textObj.el.style.borderRadius = radius;
+}

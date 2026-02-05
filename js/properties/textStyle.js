@@ -66,3 +66,12 @@ function bindOutlineControl() {
         textObj.el.style.webkitTextStrokeWidth = textObj.textStyle.outline; // apply outline
     });
 }
+
+// Apply all text style properties
+export function applyTextStyle(textObj) {
+    const { font, size, outline } = textObj.textStyle;
+
+    textObj.el.style.fontFamily = font;
+    textObj.el.style.fontSize = size;
+    textObj.el.style.webkitTextStrokeWidth = outline;
+}
