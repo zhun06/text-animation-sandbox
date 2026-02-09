@@ -4,16 +4,31 @@ import { applyTextStyle } from '../properties/textStyle.js';
 import { applyColors } from '../properties/colors.js';
 import { applyBorder } from '../properties/border.js';
 import { applyAnimation } from '../properties/animation.js';
+import { clampToCanvas } from '../utils/clamp.js';
 
 // Get elements
 const canvas = document.getElementById("canvas");
-const newTextBtn = document.getElementById("newTextBtn");
+const addTextBtn = document.getElementById("addTextBtn");
 const deleteTextBtn = document.getElementById("deleteTextBtn");
 const copyTextBtn = document.getElementById("copyTextBtn");
 const pasteTextBtn = document.getElementById("pasteTextBtn");
 
+// Bind buttons 
+addTextBtn.addEventListener("click", () => {
+    addText(addTextBtn);
+});
+deleteTextBtn.addEventListener ("click", () => {
+    deleteText(deleteTextBtn);
+});
+copyTextBtn.addEventListener ("click", () => {
+    copyText(copyTextBtn);
+});
+pasteTextBtn.addEventListener ("click", () => {
+    pasteText(pasteTextBtn);
+});
+
 // Create new text object
-newTextBtn.addEventListener("click", () => {
+export function addText() {
     const el = document.createElement("div");
     el.textContent = "New Text"; 
     el.contentEditable = "true"; // allows inline editing
@@ -22,10 +37,10 @@ newTextBtn.addEventListener("click", () => {
     canvas.appendChild(el); // add DOM element
 
     createTextObject(el); // create textObject
-});
+}
 
 // Delete text object
-deleteTextBtn.addEventListener("click", () => {
+export function deleteText() {
     const textObj = state.activeText;
 
     if (!textObj) return; // nothing selected
@@ -37,15 +52,15 @@ deleteTextBtn.addEventListener("click", () => {
     state.texts.splice(index, 1);
 
     state.activeText = null; // clear activeText
-});
+}
 
 // Copy text object
-copyTextBtn.addEventListener("click", () => {
+export function copyText() {
     state.copiedText = state.activeText;
-});
+}
 
 // Paste text object
-pasteTextBtn.addEventListener("click", () => {
+export function pasteText() {
     const copiedObj = state.copiedText;
     if (!copiedObj) return; // nothing copied
 
@@ -67,6 +82,9 @@ pasteTextBtn.addEventListener("click", () => {
     // Append to canvas
     canvas.appendChild(el);
 
+    // Clamp the pasted element so it never goes outside canvas
+    clampToCanvas(el);
+
     // Create new TextObject 
     const newTextObj = createTextObject(el);
 
@@ -82,7 +100,7 @@ pasteTextBtn.addEventListener("click", () => {
     // Increment offset for next paste
     state.pasteOffsetX += state.pasteIncrement;
     state.pasteOffsetY += state.pasteIncrement;
-});
+}
 
 function applyAllProperties(textObj) {
     applyTextStyle(textObj);

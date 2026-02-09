@@ -1,4 +1,5 @@
 import { setActiveText, updateControls } from './state.js';
+import { clampToCanvas } from '../utils/clamp.js';
 
 // Defines a text object
 export class TextObject {
@@ -27,14 +28,15 @@ export class TextObject {
             interval: '0s',
         };
         this._animTimer = null;
+        this.dragHandler = null;
 
         initializeClass(el); 
         bindSelector(this);
-        bindDrag(this);
+        addDragHandle(this);
     } 
 }
 
-// New object is of class text
+// Add class to new text element
 function initializeClass(el) {
     el.classList.add("text");
 }
@@ -43,49 +45,62 @@ function initializeClass(el) {
 function bindSelector(textObj) {
     const el = textObj.el;
 
-    el.addEventListener("mousedown", (e) => {
+    el.addEventListener("click", (e) => {
         e.stopPropagation();
         setActiveText(textObj);
         updateControls();
     });
 }
 
-// Bind listener for dragging
-function bindDrag(textObj) {
+// Bind handle for dragging
+function addDragHandle(textObj) {
     const el = textObj.el;
     const canvas = document.getElementById("canvas"); 
 
+    // Create handle
+    const handle = document.createElement("div");
+    handle.classList.add("drag-handle");
+    handle.innerHTML = "+";
+
+    // Make handle not editable
+    handle.contentEditable = "false";
+
+    el.appendChild(handle);
+
+    // Bind drag only to handle
     let offsetX = 0;
     let offsetY = 0;
 
-    el.addEventListener("mousedown", (e) => {
+    handle.addEventListener("mousedown", (e) => {
         e.stopPropagation();
 
         const canvasRect = canvas.getBoundingClientRect();
         const elRect = el.getBoundingClientRect();
 
-        // pointer offset within element
         offsetX = e.clientX - elRect.left;
         offsetY = e.clientY - elRect.top;
 
         const move = (e) => {
-            // compute position relative to canvas
             const x = e.clientX - canvasRect.left - offsetX;
             const y = e.clientY - canvasRect.top - offsetY;
 
             el.style.left = `${x}px`;
             el.style.top = `${y}px`;
+
+            clampToCanvas(el);
         };
 
         const up = () => {
             document.removeEventListener("mousemove", move);
             document.removeEventListener("mouseup", up);
-            document.body.style.userSelect = ""; // restore selection
+            document.body.style.userSelect = "";
         };
 
         document.addEventListener("mousemove", move);
         document.addEventListener("mouseup", up);
 
-        document.body.style.userSelect = "none"; // prevent text selection while dragging
+        document.body.style.userSelect = "none";
     });
+
+    textObj.handle = handle; // Store handle for toggle
 }

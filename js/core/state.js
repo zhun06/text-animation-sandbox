@@ -16,12 +16,14 @@ export function setActiveText(textObj) {
   // remove previous active
   if (state.activeText) {
     state.activeText.el.classList.remove("active");
+    state.activeText.handle.classList.remove("active");
   }
 
   // add new active
   if (textObj) {
     state.activeText = textObj;
     textObj.el.classList.add("active");
+    textObj.handle.classList.add("active");
   }
 }
 

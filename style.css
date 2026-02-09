@@ -8,7 +8,7 @@ body {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: white;
+  background-color: #eeecec;
 }
 #title {
   text-align: center;
@@ -27,16 +27,54 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eeecec;
+  background-color: white;
+
 }
 .text {
   position: absolute;
   text-align: center;
-  cursor: move;
+}
+.text:focus {
+  outline: none;
 }
 .text.active {
   outline: 2px solid #4da3ff;
   outline-offset: 2px;
+}
+.custom-menu {
+  position: absolute;
+  display: none;      /*  hidden until right-click */
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  padding: 5px;
+  z-index: 1000;
+}
+.custom-menu button {
+  display: block;
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 5px 10px;
+  text-align: left;
+  cursor: pointer;
+}
+.custom-menu button:hover {
+  background: #eee;
+}
+.drag-handle {
+  display: none;          /* hidden until select */
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: move;
+  font-size: 16px;
+  user-select: none;
+  z-index: 10;
+}
+.drag-handle.active {
+  display: block;
 }
 
 .anim-none { animation: none;}
