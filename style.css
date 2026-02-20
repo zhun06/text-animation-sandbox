@@ -1,34 +1,123 @@
 * {
     box-sizing: border-box;
-    font-size: 16;
+    margin: 0;
+    padding: 0;
 }
+html {
+  font-size: 16px; /* default */
+}
+@media (max-width: 1200px) {
+  html { font-size: 15px; }
+}
+@media (max-width: 992px) {
+  html { font-size: 14px; }
+}
+@media (max-width: 768px) {
+  html { font-size: 13px; }
+}
+@media (max-width: 480px) {
+  html { font-size: 12px; }
+}
+
 body { 
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.1rem;
   height: 100vh;
   width: 100vw;
-  background-color: #eeecec;
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 #title {
   text-align: center;
+  margin-top: 1rem;
 }
+
+/* --- Input --- */
+input,
+select {
+  background-color: #3c3c3c;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 0.3rem;
+  outline: none;
+}
+input[type="color"] {
+  padding: 0.1rem;
+  height: 1.5rem;
+}
+
+/* --- General Buttons --- */
+button {
+  background-color: #3c3c3c; 
+  color: #ffffff;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #555;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+button:hover {
+  background-color: #0a84ff;
+}
+button:active {
+  background-color: #0a84ff;
+  transform: translateY(1px);
+}
+@media (hover: none) and (pointer: coarse) {
+  button:hover {
+    background-color: #3c3c3c; /* same as normal, ignore hover */
+  }
+}
+
+/* --- Tab Buttons --- */
+.tabs-btn {
+  background-color: transparent;
+  color: #ccc; /* inactive tab */
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s, border-bottom 0.2s;
+}
+.tabs-btn:hover {
+  background-color: #3c3c3c;
+  color: #ffffff;
+  border: none;
+}
+.tabs-btn.active {
+  background-color: transparent;
+  color: #ffffff;
+  font-weight: 700; 
+  border-bottom: 2px solid #ffffff;
+}
+
+/* --- Tab panels --- */
 .tab-panel {
   display: none;
 }
 .tab-panel.active {
   display: flex;
   flex-direction: row;
+  gap: 0.3rem;
 }
+
+/* --- Canvas and text objects --- */
 #canvas {
   position: relative;
-  height: 80vh;
-  width: 100vw;
+  flex: 1 1 auto;
+  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   background-color: white;
-
+  touch-action: none;
+}
+@media (max-height: 500px) {
+  #title {
+    display: none;
+  }
 }
 .text {
   position: absolute;
@@ -38,15 +127,17 @@ body {
   outline: none;
 }
 .text.active {
-  outline: 2px solid #4da3ff;
-  outline-offset: 2px;
+  outline: 1px solid #4da3ff;
+  outline-offset: 1px;
 }
+
+/* --- Custom Right-Click Menu --- */
 .custom-menu {
   position: absolute;
-  display: none;      /*  hidden until right-click */
-  background: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  display: none;
+  background: #3c3c3c;
+  border: 1px solid #555;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
   padding: 5px;
   z-index: 1000;
 }
@@ -55,29 +146,43 @@ body {
   width: 100%;
   border: none;
   background: none;
-  padding: 5px 10px;
+  padding: 0.3rem 0.7rem;
   text-align: left;
   cursor: pointer;
+  color: #fff;
 }
 .custom-menu button:hover {
-  background: #eee;
+  background-color: #0a84ff;
+  color: #fff;
 }
+
+/* --- Handle for dragging text--- */
 .drag-handle {
   display: none;          /* hidden until select */
   position: absolute;
-  top: -13px;
-  left: 50%;
-  transform: translateX(-50%);
+  color: white;
+  -webkit-text-stroke: 0.5px black; 
   cursor: move;
-  font-size: 16px;
+  font-size: 1.6rem;
   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   z-index: 10;
 }
 .drag-handle.active {
   display: block;
 }
 
+/* --- Animations --- */
 .anim-none { animation: none;}
+.anim-spinX { animation: spinX var(--anim-duration) linear infinite; }
+.anim-spinY { animation: spinY var(--anim-duration) linear infinite; }
+.anim-swing3D { animation: swing3D var(--anim-duration) ease-in-out; }
+.anim-jump { animation: jump var(--anim-duration) ease-out; }
+.anim-flipBounce { animation: flipBounce var(--anim-duration) ease; }
+.anim-wave { animation: wave var(--anim-duration) ease-in-out; }
+.anim-tilt { animation: tilt var(--anim-duration) ease-in-out; }
 .anim-heartBeat { animation: heartBeat var(--anim-duration) ease; }
 .anim-fadeIn { animation: fadeIn var(--anim-duration) ease; }
 .anim-fadeOut { animation: fadeOut var(--anim-duration) ease; }
@@ -100,6 +205,52 @@ body {
 .anim-blurIn { animation: blurIn var(--anim-duration) ease; }
 .anim-ripple { animation: ripple var(--anim-duration) ease; }
 
+@keyframes spinX {
+  from { transform: rotateX(0deg); }
+  to { transform: rotateX(360deg); }
+}
+
+@keyframes spinY {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes swing3D {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  25% { transform: rotateX(15deg) rotateY(-10deg); }
+  50% { transform: rotateX(-10deg) rotateY(15deg); }
+  75% { transform: rotateX(10deg) rotateY(-15deg); }
+  100% { transform: rotateX(0deg) rotateY(0deg); }
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+@keyframes flipBounce {
+  0% { transform: rotateX(0deg); }
+  40% { transform: rotateX(180deg); }
+  60% { transform: rotateX(160deg); }
+  80% { transform: rotateX(180deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(10deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(10deg); }
+  80% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes tilt {
+  0%, 100% { transform: rotateZ(0deg); }
+  25% { transform: rotateZ(5deg); }
+  50% { transform: rotateZ(-5deg); }
+  75% { transform: rotateZ(3deg); }
+}
 @keyframes heartBeat {
   0%, 100% { transform: scale(1); }
   14% { transform: scale(1.3); }

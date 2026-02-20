@@ -1,4 +1,5 @@
 import { state } from '../core/state.js';
+import { updateDragHandle } from '../utils/updateHandle.js';
 
 // Get control elements
 const border = document.querySelector('#border');
@@ -48,6 +49,7 @@ function bindWidthControl() {
         let width = Math.min(30, Math.max(0, borderWidthControl.value)); // clamp border width
         textObj.border.width = width + 'px'; // store border width
         textObj.el.style.borderWidth = textObj.border.width; // apply border width
+        updateDragHandle(textObj);
     });
 }
 

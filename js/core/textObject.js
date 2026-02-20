@@ -71,7 +71,7 @@ function addDragHandle(textObj) {
     let offsetX = 0;
     let offsetY = 0;
 
-    handle.addEventListener("mousedown", (e) => {
+    handle.addEventListener("pointerdown", (e) => {
         e.stopPropagation();
 
         const canvasRect = canvas.getBoundingClientRect();
@@ -91,13 +91,13 @@ function addDragHandle(textObj) {
         };
 
         const up = () => {
-            document.removeEventListener("mousemove", move);
-            document.removeEventListener("mouseup", up);
+            document.removeEventListener("pointermove", move);
+            document.removeEventListener("pointerup", up);
             document.body.style.userSelect = "";
         };
 
-        document.addEventListener("mousemove", move);
-        document.addEventListener("mouseup", up);
+        document.addEventListener("pointermove", move);
+        document.addEventListener("pointerup", up);
 
         document.body.style.userSelect = "none";
     });

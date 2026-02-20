@@ -8,7 +8,7 @@ import { bindColorsControl } from './properties/colors.js';
 import { bindBorderControl } from './properties/border.js';
 import { bindAnimationControl } from './properties/animation.js';
 
-// Bind controls to modify properties of active text/s
+// Bind controls to modify properties of active text
 bindTextStyleControl();
 bindColorsControl();
 bindBorderControl();

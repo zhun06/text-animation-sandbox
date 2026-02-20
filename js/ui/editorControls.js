@@ -1,4 +1,4 @@
-import { state } from '../core/state.js';
+import { setActiveText, state } from '../core/state.js';
 import { createTextObject } from '../core/textFactory.js';
 import { applyTextStyle } from '../properties/textStyle.js';
 import { applyColors } from '../properties/colors.js';
@@ -12,6 +12,7 @@ const addTextBtn = document.getElementById("addTextBtn");
 const deleteTextBtn = document.getElementById("deleteTextBtn");
 const copyTextBtn = document.getElementById("copyTextBtn");
 const pasteTextBtn = document.getElementById("pasteTextBtn");
+const resetCanvasBtn = document.getElementById("resetCanvasBtn");
 
 // Bind buttons 
 addTextBtn.addEventListener("click", () => {
@@ -25,6 +26,9 @@ copyTextBtn.addEventListener ("click", () => {
 });
 pasteTextBtn.addEventListener ("click", () => {
     pasteText(pasteTextBtn);
+});
+resetCanvasBtn.addEventListener ("click", () => {
+    resetCanvas(resetCanvasBtn);
 });
 
 // Create new text object
@@ -65,7 +69,13 @@ export function pasteText() {
     if (!copiedObj) return; // nothing copied
 
     // Clone DOM element
-    const el = copiedObj.el.cloneNode(true);
+    const el = copiedObj.el.cloneNode(false);
+
+    // Temporary remove handle for copying text
+    const handle = copiedObj.handle;
+    handle.remove();
+    el.innerText = copiedObj.el.innerText;
+    copiedObj.el.appendChild(handle);
 
     // Optional: offset the pasted element slightly
     const rect = copiedObj.el.getBoundingClientRect();
@@ -100,7 +110,27 @@ export function pasteText() {
     // Increment offset for next paste
     state.pasteOffsetX += state.pasteIncrement;
     state.pasteOffsetY += state.pasteIncrement;
+
+    // Set newTextObj as active text
+    setActiveText(newTextObj);
 }
+
+// Clear canvas
+export function resetCanvas() {
+    // Remove DOM elements
+    state.texts.forEach(textObj => {
+        textObj.el.remove();
+    });
+
+    state.canvas.style.backgroundColor = "white";
+
+    // Clear the state array
+    state.texts = [];
+
+    // Clear active text
+    state.activeText = null;
+}
+
 
 function applyAllProperties(textObj) {
     applyTextStyle(textObj);

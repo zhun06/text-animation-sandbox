@@ -2,6 +2,7 @@ import { updateTextStyleControl } from "../ui/textStyleControls.js";
 import { updateColorsControl } from "../ui/colorsControls.js";
 import { updateBorderControl } from "../ui/borderControls.js";
 import { updateAnimationControl } from "../ui/animationControls.js";
+import { updateDragHandle } from "../utils/updateHandle.js";
 
 // Global state
 export const state = {
@@ -24,6 +25,7 @@ export function setActiveText(textObj) {
     state.activeText = textObj;
     textObj.el.classList.add("active");
     textObj.handle.classList.add("active");
+    updateDragHandle(textObj);
   }
 }
 

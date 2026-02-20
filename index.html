@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Text animation sandbox</h1>
+    <h1 id="title">Text animation sandbox</h1>
     <nav id="tabs">
-        <button data-tab="home">Home</button>
-        <button data-tab="textStyle">Text</button>
-        <button data-tab="colors">Colors</button>
-        <button data-tab="border">Border</button>
-        <button data-tab="animation">Animation</button>
+        <button data-tab="home" class="tabs-btn active">Home</button>
+        <button data-tab="textStyle" class="tabs-btn">Text</button>
+        <button data-tab="colors" class="tabs-btn">Colors</button>
+        <button data-tab="border" class="tabs-btn">Border</button>
+        <button data-tab="animation" class="tabs-btn">Animation</button>
     </nav>
 
     <div id="home" class="tab-panel active">
@@ -21,6 +21,7 @@
         <button id="deleteTextBtn">Delete text</button>
         <button id="copyTextBtn">Copy text</button>
         <button id="pasteTextBtn">Paste text</button>
+        <button id="resetCanvasBtn">Reset canvas</button>
     </div>
 
     <div id="textStyle" class="tab-panel" >
@@ -108,6 +109,13 @@
             Animation:
             <select id="animationTypeControl">
                 <option value="none" selected>none</option>
+                <option value="spinX">spinX</option>
+                <option value="spinY">spinY</option>
+                <option value="swing3D">swing3D</option>
+                <option value="jump">jump</option>
+                <option value="flipBounce">flipBounce</option>
+                <option value="wave">wave</option>
+                <option value="tilt">tilt</option>
                 <option value="heartBeat">heartBeat</option>
                 <option value="fadeIn">fadeIn</option>
                 <option value="fadeOut">fadeOut</option>

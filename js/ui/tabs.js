@@ -1,5 +1,5 @@
 // Get all tabs and panels
-const tabButtons = document.querySelectorAll('#tabs button');
+const tabButtons = document.querySelectorAll('.tabs-btn');
 const tabPanels = document.querySelectorAll('.tab-panel');
 
 tabButtons.forEach(button => {
@@ -15,6 +15,6 @@ tabButtons.forEach(button => {
 
     // Update active button styling
     tabButtons.forEach(btn => btn.classList.remove('active'));
-    // button.classList.add('active');
+    button.classList.add('active');
   });
 });
